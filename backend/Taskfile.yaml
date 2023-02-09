@@ -1,0 +1,32 @@
+version: '3'
+
+tasks:
+  run-migration-and-api-start:
+    deps: [ db-migrate-up ]
+    cmds:
+      - go run ./cmd/http/main.go
+  db-migrate-up:
+    cmds:
+      - echo "Migrating database (up)..."
+      # parse and create content from html eBook
+      - go run ./cmd/cli/main.go
+      # run migrations up
+      - migrate -database $DATABASE_URL -path db/migrations up
+      - echo "Migrating database (up done)"
+  db-migrate-down:
+    cmds:
+      - echo "Migrating database (down)..."
+      # run migrations down
+      - migrate -database $DATABASE_URL -path db/migrations down
+      - echo "Migrating database (down done)"
+  unit-test:
+    cmds:
+      - go test -v ./... -short
+  unit-test-coverage-report:
+    cmds:
+      - go test -v -coverprofile cover.out ./... -short
+      - go tool cover -html cover.out -o cover.html
+  e2e-tests:
+    cmds:
+      - cd tests
+      - go test -v ./... -run TestSearchEndToEnd -count=1
