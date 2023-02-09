@@ -23,9 +23,10 @@ RUN curl -LO https://github.com/go-task/task/releases/download/v3.20.0/task_linu
     mv task /usr/local/bin/task && \
     rm task_linux_amd64.tar.gz
 
-RUN task db-migrate-up
+# todo: render doesnt allow calling sequential commands during container CMD/start
+# RUN task db-migrate-up
 
 # render special build flags
-RUN cmd/http && go build -tags netgo -ldflags '-s -w' -o api
+RUN cd cmd/http && go build -tags netgo -ldflags '-s -w' -o api
 
 CMD sh -c "task start-api-prod"
