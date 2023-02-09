@@ -5,7 +5,7 @@ WORKDIR /opt/api
 
 ARG DATABASE_URL
 
-COPY .. ./
+COPY . ./
 
 RUN apk add --no-cache curl build-base
 

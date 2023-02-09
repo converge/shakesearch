@@ -4,9 +4,7 @@ tasks:
   run-migration-and-api-start-prod:
     deps: [ db-migrate-up ]
     cmds:
-      - cd cmd/http
-      - go build -tags netgo -ldflags '-s -w' -o api
-      - ./api
+      - cd cmd/http && go build -tags netgo -ldflags '-s -w' -o api && ./api
   run-migration-and-api-start:
     deps: [ db-migrate-up ]
     cmds:
@@ -34,5 +32,4 @@ tasks:
       - go tool cover -html cover.out -o cover.html
   e2e-tests:
     cmds:
-      - cd tests
-      - go test -v ./... -run TestSearchEndToEnd -count=1
+      - cd tests && go test -v ./... -run TestSearchEndToEnd -count=1
