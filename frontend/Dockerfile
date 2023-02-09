@@ -13,8 +13,6 @@ RUN yarn install
 
 RUN yarn build
 
-#CMD sh -c "sleep 1d"
-
 FROM nginx:1.23-alpine
 
 WORKDIR /usr/share/nginx/html
