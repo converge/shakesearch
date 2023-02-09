@@ -1,0 +1,120 @@
+openapi: 3.0.0
+info:
+  title: ShakeSearch API
+  description: ShakeSearch API provides a way for searching Shakespeare's works.
+  version: 1.0.0
+servers:
+  - url: http://localhost:7001/v1
+    description: local
+#    todo: update it when there is a production URL
+  - url: https://prod.prod
+    description: production
+tags:
+  - name: chapter
+    description: Chapter operations to search and get specific chapters
+  - name: version
+    description: API information
+paths:
+  /chapter/search:
+    get:
+      tags:
+        - chapter
+      summary: Search endpoint
+      operationId: search
+      description: By providing a query string, it returns a list of chapters
+      parameters:
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+            example: "king"
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 16
+                    title:
+                      type: string
+                      example: "KING JOHN"
+                    chapter:
+                      type: string
+                      example: "\nTHE LIFE AND DEATH OF KING JOHN\n\n"
+                      description: >
+                        it contains a summary of the chapter's content, full content can be found in the /chapter/{id} 
+                        endpoint
+        400:
+          description: Bad request, the query string is missing
+        500:
+          description: >
+            Internal server error, it usually happens when the database is not available, or there are some
+            severe errors in the backend.
+
+  /chapter/{id}:
+    get:
+      tags:
+        - chapter
+      summary: Find a specific chapter by id
+      operationId: chapter
+      description: >
+        By providing a chapter id, it returns the chapter's content. The chapter id can be found in the search
+        endpoint.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        200:
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 16
+                  title:
+                    type: string
+                    example: "KING JOHN"
+                  chapter:
+                    type: string
+                    example: "\nTHE LIFE AND DEATH OF KING JOHN\n\n"
+                    description: it contains chapter's content in full
+        400:
+          description: Bad request, something that the user informed in the request is not valid
+        404:
+          description: Chapter was not found
+        500:
+          description: >
+            Internal server error, it usually happens when the database is not available, or there are some
+            severe errors in the backend.
+
+  /:
+    get:
+      tags:
+        - version
+      summary: Version endpoint returns the current API version
+      operationId: version
+      responses:
+        200:
+          description: It returns the current API version
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  version:
+                    type: string
+                    example: "1.0.0"
