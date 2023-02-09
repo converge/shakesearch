@@ -1,10 +1,9 @@
 version: '3'
 
 tasks:
-  run-migration-and-api-start-prod:
-    deps: [ db-migrate-up ]
+  start-api-prod:
     cmds:
-      - cd cmd/http && go build -tags netgo -ldflags '-s -w' -o api && ./api
+      - cd cmd/http && ./api
   run-migration-and-api-start:
     deps: [ db-migrate-up ]
     cmds:

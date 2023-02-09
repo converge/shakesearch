@@ -3,6 +3,8 @@ FROM golang:1.19-alpine
 
 WORKDIR /opt/api
 
+EXPOSE 7001
+
 ARG DATABASE_URL
 
 COPY . ./
@@ -21,6 +23,9 @@ RUN curl -LO https://github.com/go-task/task/releases/download/v3.20.0/task_linu
     mv task /usr/local/bin/task && \
     rm task_linux_amd64.tar.gz
 
-EXPOSE 7001
+RUN task db-migrate-up
 
-CMD sh -c "task run-migration-and-api-start-prod"
+# render special build flags
+RUN cmd/http && go build -tags netgo -ldflags '-s -w' -o api
+
+CMD sh -c "task start-api-prod"
