@@ -1,0 +1,43 @@
+
+#result {
+    grid-column: 2;
+    grid-row: 2;
+    text-align: left;
+    margin-top: 50px;
+}
+
+.query-result {
+    text-align: left;
+    border-radius: 7px;
+    margin: 20px;
+    -webkit-box-shadow: 2px 2px 3px 1px rgba(0,0,0,0.6);
+    box-shadow: 2px 2px 3px 1px rgba(0,0,0,0.6);
+    padding: 20px;
+    background-color: #ffffff;
+    overflow:hidden;
+}
+
+.query-result__box {
+    padding: 20px;
+    overflow:hidden;
+}
+
+.query-result__box h3 {
+    font-size: 1rem;
+}
+
+.query-result__box pre {
+    font-size: 0.8rem;
+}
+
+.query-result__box a {
+    color: #0d5aa7;
+    font-size: 0.8rem;
+}
+
+.query-result__more {
+    font-size: 0.9rem;
+    margin: 20px;
+    color: #5e2ca5;
+}
+
