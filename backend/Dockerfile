@@ -23,4 +23,4 @@ RUN curl -LO https://github.com/go-task/task/releases/download/v3.20.0/task_linu
 
 EXPOSE 7001
 
-CMD sh -c "task run-migration-and-api-start"
+CMD sh -c "task run-migration-and-api-start-prod"
