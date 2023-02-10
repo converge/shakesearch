@@ -4,10 +4,10 @@ info:
   description: ShakeSearch API provides a way for searching Shakespeare's works.
   version: 1.0.0
 servers:
-  - url: http://localhost:7001/v1
-    description: local
   - url: https://shakesearch-backend.onrender.com/v1
     description: production
+  - url: http://localhost:7001/v1
+    description: local
 tags:
   - name: chapter
     description: Chapter operations to search and get specific chapters
