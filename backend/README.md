@@ -52,7 +52,3 @@ github.com/gorilla/mux         # for http routing
 github.com/jackc/pgx/v5        # for postgres driver
 github.com/rs/zerolog          # for logging
 ```
-
-## How to run
-
-todo: work here
