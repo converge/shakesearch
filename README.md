@@ -1,30 +1,26 @@
 # ShakeSearch
 
-Welcome to the Pulley Shakesearch Take-home Challenge! In this repository,
-you'll find a simple web app that allows a user to search for a text string in
-the complete works of Shakespeare.
+## Overview
 
-You can see a live version of the app at
-https://pulley-shakesearch.onrender.com/. Try searching for "Hamlet" to display
-a set of results.
+This is a web app that allows a user to search for a text string in the complete works of Shakespeare.
 
-In it's current state, however, the app is in rough shape. The search is
-case sensitive, the results are difficult to read, and the search is limited to
-exact matches.
+ * [Developer Guide](developer.md)
+ * [Backend Overview](backend/README.md)
+ * [End-to-End test](backend/tests/README.md)
+ * [OpenAPI specification](backend/third_party/swagger-ui/shakesearch.yaml)
 
-## Your Mission
+### How it works
 
-Improve the app! Think about the problem from the **user's perspective**
-and prioritize your changes according to what you think is most useful.
+It loads the complete works of Shakespeare into the database (PostgreSQL), and then allows the user to search for a text
+string in the database. The data parsing is done using goquery, and the search is done using PostgreSQL full text 
+search.
 
-You can approach this with a back-end, front-end, or full-stack focus.
+A CLI tool at [backend/cmd/cli](backend/cmd/cli/main.go) is used to parse the data and create a migration file. The 
+migration file is then run to load the data into the database. (the idea is to automate the process during CI/CD).
 
-## Evaluation
+After data being parsed and loaded into the database, the backend exposes an API to search for the text string. The
+search is done using PostgreSQL full text search. And the weight of the title and content(chapter content) were balanced
+to get the best result. More details can be found [here](backend/db/migrations/000001_shakesearch_initial.up.sql).
 
-We will be primarily evaluating based on how well the search works for users. A search result with a lot of features (i.e. multi-words and mis-spellings handled), but with results that are hard to read would not be a strong submission.
+The frontend is a simple React app that allows the user to search for a text string and displays the results.
 
-## Submission
-
-1. Fork this repository and send us a link to your fork after pushing your changes.
-2. Render (render.com) hosting, the application deploys cleanly from a public url.
-3. In your submission, share with us what changes you made and how you would prioritize changes if you had more time.
