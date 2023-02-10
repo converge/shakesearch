@@ -26,14 +26,17 @@ export const Search = () => {
 
     const [query, setQuery] = useState('');
     const [queryResult, setQueryResult] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = (ev) => {
+        setLoading(true);
         ev.preventDefault();
 
         const queryShakeSearch = async () => {
             const result = await shakeSearch(query);
             console.log(result)
             setQueryResult(result);
+            setLoading(false);
         }
         queryShakeSearch();
     }
@@ -52,6 +55,7 @@ export const Search = () => {
         </form>
 
         <div>
+            {loading === true && <div>Loading...</div>}
             {queryResult && <ResultsList queryResult={queryResult} />}
 
             {/*{queryResult && queryResult.map((result) => (*/}
