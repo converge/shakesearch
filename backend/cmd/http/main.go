@@ -50,7 +50,7 @@ func main() {
 	subRouter := router.PathPrefix("/v1").Subrouter()
 
 	// serve swagger UI
-	swaggerRouter := http.StripPrefix("/v1/swagger-ui", http.FileServer(http.Dir("./third_party/swagger-ui/")))
+	swaggerRouter := http.StripPrefix("/v1/swagger-ui", http.FileServer(http.Dir("../../third_party/swagger-ui/")))
 	subRouter.PathPrefix("/swagger-ui").Handler(swaggerRouter)
 
 	// CORS middleware

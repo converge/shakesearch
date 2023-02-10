@@ -7,7 +7,7 @@ tasks:
   run-migration-and-api-start:
     deps: [ db-migrate-up ]
     cmds:
-      - go run ./cmd/http/main.go
+      - cd cmd/http && go run main.go
   db-migrate-up:
     cmds:
       - echo "Migrating database (up)..."
