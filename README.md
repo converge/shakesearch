@@ -4,10 +4,10 @@
 
 This is a web app that allows a user to search for a text string in the complete works of Shakespeare.
 
- * [Developer Guide](developer.md)
  * [Backend Overview](backend/README.md)
- * [End-to-End test](backend/tests/README.md)
+ * [Developer Guide](developer.md)
  * [OpenAPI specification](backend/third_party/swagger-ui/shakesearch.yaml)
+ * [End-to-End test](backend/tests/README.md)
 
 ### How it works
 
