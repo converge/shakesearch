@@ -1,0 +1,54 @@
+version: "3.7"
+services:
+
+  backend-unit-tests:
+    build:
+      context: ./backend
+    command: task unit-test
+
+  backend:
+    container_name: shakesearch-backend
+    working_dir: /opt/api
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    env_file:
+      - bkp.env
+    depends_on:
+      - postgresql
+    volumes:
+      - ./backend:/opt/app
+    ports:
+      - "7001:7001"
+    # this is for local development, in that way we stop the execution of the container, and can attach to the container
+    # and run the server manually for development, start/stop, etc.
+#    command: sleep 1d
+#    command: task run-migration-and-api-start
+    command: task start-api-prod
+
+  postgresql:
+    container_name: shakesearch-postgresql
+    image: postgres:15-alpine
+    env_file:
+      - bkp.env
+    volumes:
+      - postgresql-data:/var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+
+  frontend:
+    container_name: shakesearch-frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    env_file:
+      - bkp.env
+    ports:
+      - "80:80"
+    # this is for local development, in that way we stop the execution of the container, and can attach to the container
+    # and run the server manually for development, start/stop, etc.
+#    command: sleep 1d
+#    command: yarn start
+
+volumes:
+  postgresql-data:
