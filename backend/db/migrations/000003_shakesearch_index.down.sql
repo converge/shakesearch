@@ -1,0 +1,5 @@
+BEGIN;
+
+DROP INDEX IF EXISTS chapter_idx;
+
+END;
